@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28">
+  <g fill="none" fill-rule="evenodd">
+    <rect width="28" height="28"/>
+    <rect width="28" height="28"/>
+    <line x1="8.969" x2="18.969" y1="12.25" y2="12.25" stroke="#495056" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    <line x1="8.969" x2="18.969" y1="15.75" y2="15.75" stroke="#495056" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    <path stroke="#495056" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 23.25L21 23.25C20.0335017 23.25 19.25 22.4217268 19.25 21.4L19.25 6.6C19.25 5.57827321 20.0335017 4.75 21 4.75L21 4.75C21.9664983 4.75 22.75 5.57827321 22.75 6.6L22.75 21.4C22.75 22.4217268 21.9664983 23.25 21 23.25zM7 23.25L7 23.25C6.03350169 23.25 5.25 22.4217268 5.25 21.4L5.25 6.6C5.25 5.57827321 6.03350169 4.75 7 4.75L7 4.75C7.96649831 4.75 8.75 5.57827321 8.75 6.6L8.75 21.4C8.75 22.4217268 7.96649831 23.25 7 23.25z"/>
+    <line x1="2.25" x2="2.25" y1="8.75" y2="19.25" stroke="#495056" stroke-linejoin="round" stroke-width="1.5"/>
+    <line x1="2.25" x2=".25" y1="14" y2="14" stroke="#495056" stroke-linejoin="round" stroke-width="1.5"/>
+    <line x1="25.75" x2="25.75" y1="8.75" y2="19.25" stroke="#495056" stroke-linejoin="round" stroke-width="1.5"/>
+    <line x1="25.25" x2="27.75" y1="14" y2="14" stroke="#495056" stroke-linejoin="round" stroke-width="1.5"/>
+  </g>
+</svg>

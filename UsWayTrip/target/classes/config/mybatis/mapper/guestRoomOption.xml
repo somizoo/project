@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="guestRoomOption">
+
+	<select id="groAllList" resultType="gro">
+		select * from guestRoomOption order by gro_no desc
+	</select>
+	
+	<insert id="groInert" parameterType="gro" >
+		<selectKey keyProperty="gro_no" resultType="int" order="BEFORE">
+			select guestRoomOption_seq.nextval from dual
+		</selectKey>
+		
+		insert into guestroomoption values(#{gro_no},#{gr_no},#{gro_name},#{gro_bf},#{gro_price})
+	</insert>
+	
+	<select id="groOne" parameterType="int" resultType="gro">
+		select * from guestroomoption where gro_no=#{no}
+	</select>
+	
+	<!-- 객실 옵션 번호로 삭제 -->
+	<delete id="groDelete">
+		delete from guestroomoption where gro_no=#{no}
+	</delete>
+	
+	<update id="groUpdate">
+		update guestroomoption set gro_name=#{gro_name},gro_bf=#{gro_bf},gro_price=#{gro_price} where gro_no=#{gro_no} 
+	</update>
+	
+	<!--객실 번호로 삭제 -->
+	<delete id="guestRoomDelete">
+		delete from guestroomoption where gr_no=#{no}
+	</delete>
+	
+	<!-- 해당하는 객실의 옵션만 가져오기 -->
+	<select id="groList" resultType="gro">
+		select go.*
+		from guestroomoption go
+		where go.gr_no = #{no}
+	</select>
+	
+	<!-- 해당 숙소의 최소가격 -->
+	<select id="lodpriceList"  resultType="price">
+		select g.lodging_no product_no,min(go.gro_price) cost
+		from  guestroom g, guestroomoption go
+		where go.gr_no = g.gr_no
+		group by g.lodging_no
+	</select>
+	
+	<!-- 22.12.07 추가 -->
+	<select id="getPrice" resultType="int" parameterType="int">
+		select gro_price
+			from guestroomoption
+			where gro_no = #{gro_no} 
+	</select>
+	
+</mapper>

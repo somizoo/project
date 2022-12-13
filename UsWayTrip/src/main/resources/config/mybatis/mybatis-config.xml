@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "HTTP://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<settings>
+		<setting name="cacheEnabled" value="false" />
+		<setting name="useGeneratedKeys" value="true" />
+		<setting name="defaultExecutorType" value="REUSE" />
+	</settings>
+	
+	<typeAliases>
+		<!-- <typeAlias type="vo.BoardVo" alias="board"/> -->
+		<typeAlias type="ticketsubcategory.TicketSubCategoryVO" alias="tsc"/>
+		<typeAlias type="board.BoardVO" alias="board"/>
+		<typeAlias type="lodging.LodgingVO" alias="lodging"/>
+		<typeAlias type="member.MemberVO" alias="member"/>
+		
+		<!-- 22.11.24 추가 -->
+		<typeAlias type="ticketevent.TicketEventVO" alias="te"/>
+		<typeAlias type="ticket.TicketVO" alias="ticket"/>
+		<typeAlias type="service.ServiceVO" alias="service"/>
+		<typeAlias type="facilities.FacilitiesVO" alias="fac"/>
+		<typeAlias type="place.PlaceVO" alias="place"/>
+		<typeAlias type="lodgingtype.LodgingTypeVO" alias="lodgingType"/>
+		<typeAlias type="img.ImgVO" alias="img"/>
+		<typeAlias type="lodgingfacilities.LodgingFacilitiesVO" alias="lofac"/>
+		
+		<!-- 22.11.25 추가 -->
+		<typeAlias type="boarddata.BoardDataVO" alias="boardData"/>
+		
+		<!-- 22.11.26 추가 -->
+		<typeAlias type="ticketoption.TicketOptionVO" alias="ticketoption"/>
+		<!-- 22.11.27 추가 -->
+		<typeAlias type="guestroomoption.GuestRoomOptionVO" alias="gro"/>
+		
+		<!-- 22.11.28 추가 -->
+		<typeAlias type="guestroom.GuestRoomVO" alias="gr"/>
+		
+		<!-- 22.11.29 -->
+		<typeAlias type="review.ReviewVO" alias="review"/>
+		<typeAlias type="amenities.AmenitiesVO" alias="am"/>
+		<typeAlias type="bed.BedVO" alias="bed"/>
+		<typeAlias type="outlook.OutLookVO" alias="look"/>
+		<typeAlias type="ticketeventdata.TicketEventDataVO" alias="ted"/>
+		<typeAlias type="ticketinfo.TicketInfoVO" alias="ti"/>
+		
+		<!-- 22.11.30 -->
+		<typeAlias type="reviewimg.ReviewImgVO" alias="ri"/>
+		<typeAlias type="guestroomimg.GuestRoomImgVO" alias="gimg"/>
+		<typeAlias type="guestroombed.GuestRoomBedVO" alias="grbed"/>
+		<typeAlias type="agency.AgencyVO" alias="agency"/>
+		<typeAlias type="ticketinfodata.TicketInfoDataVO" alias="tid"/>
+		
+		<!-- 22.12.01 -->
+		<typeAlias type="wishlist.WishListVO" alias="wl" />
+		<typeAlias type="boarddatafile.BoardDataFileVO" alias="bdf"/>
+		
+		<!-- 22.12.02 -->
+		<typeAlias type="managercoupon.ManagerCouponVO" alias="mc" />
+		<typeAlias type="ticketinfojoin.TicketInfoJoinVO" alias="tij"/>
+		<typeAlias type="guestroomamenities.GuestRoomAmenitiesVO" alias="gram"/>
+		
+		<!-- 12.05 -->
+		<typeAlias type="price.priceVO" alias="price"/>
+		
+		<!-- 12.06 -->
+		<typeAlias type="place.PlaceVO" alias="place"/>
+		<typeAlias type="payment.PaymentVO" alias="payment"/>
+		
+		<!-- 12.08 -->
+		<typeAlias type="ticketpayoption.TicketPayOptionVO" alias="tpo"/>
+	</typeAliases>
+	
+	<mappers>
+		<!-- sql작성된 파일 추가해주세요! -->
+		<mapper resource="config/mybatis/mapper/member.xml"/>
+		<mapper resource="config/mybatis/mapper/ticketsubcategory.xml" />
+		<mapper resource="config/mybatis/mapper/lodging.xml"/>
+		<mapper resource="config/mybatis/mapper/board.xml"/>
+		
+		<!-- 22.11.24 추가 -->
+		<mapper resource="config/mybatis/mapper/ticketevent.xml" />
+		<mapper resource="config/mybatis/mapper/ticket.xml"/>
+		
+		<!-- 22.11.25 추가 -->
+		<mapper resource="config/mybatis/mapper/boarddata.xml"/>
+		
+		<!-- 22.11.26 추가 -->
+		<mapper resource="config/mybatis/mapper/ticketoption.xml"/>
+		<!-- 22.11.26 추가 -->
+		<mapper resource="config/mybatis/mapper/guestRoomOption.xml"/>
+		
+		<!-- 22.11.28 추가 -->
+		<mapper resource="config/mybatis/mapper/guestRoom.xml"/>
+		
+		<!-- 22.11.29 추가 -->
+		<mapper resource="config/mybatis/mapper/review.xml"/>
+		<mapper resource="config/mybatis/mapper/guestRoomImg.xml"/>
+		<mapper resource="config/mybatis/mapper/ticketinfo.xml"/>
+		
+		<!-- 22.11.30 추가 -->
+		<mapper resource="config/mybatis/mapper/reviewImg.xml" />
+		<mapper resource="config/mybatis/mapper/agency.xml"/>
+		
+		<!-- 22.12.01 추가 -->
+		<mapper resource="config/mybatis/mapper/wishList.xml"/>
+		<mapper resource="config/mybatis/mapper/boarddatafile.xml"/>
+		
+		<!-- 22.12.02 추가 -->
+		<mapper resource="config/mybatis/mapper/managercoupon.xml"/>
+		<mapper resource="config/mybatis/mapper/guestRoomAmenities.xml" />
+		<mapper resource="config/mybatis/mapper/amenities.xml" />
+		<mapper resource="config/mybatis/mapper/guestroombed.xml" />
+		
+		<!-- 22.12.04 -->
+		<mapper resource="config/mybatis/mapper/img.xml" />
+		<!-- 22.12.05 추가 인진-->
+		<mapper resource="config/mybatis/mapper/comingsoon.xml" />
+		
+		<!-- 22.12.06 -->
+		 <mapper resource="config/mybatis/mapper/place.xml" />
+		 <mapper resource="config/mybatis/mapper/payment.xml" />
+		 
+		 
+		 <!-- 22.12.08 -->
+		 <mapper resource="config/mybatis/mapper/ticketpayoption.xml"></mapper>
+	</mappers>
+</configuration>

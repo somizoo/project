@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="guestRoom">
+	<!-- 객실 전체 리스트 -->
+	<select id="grList" resultType="gr" parameterType="int">
+		select g.*,l.lodging_name ,o.*
+		from guestRoom g , lodging l, outlook o
+		where g.lodging_no = l.lodging_no and g.gr_ot = o.ot_no and g.lodging_no=#{no}
+		order by gr_no desc
+	</select>
+	
+	<select id="amList" resultType="am">
+		select * from amenities
+	</select>
+	
+	<select id="bedList" resultType="bed">
+		select * from bed
+	</select>
+	
+	<select id="otList" resultType="look">
+		select * from outlook
+	</select>
+	
+	<insert id="grInsert" parameterType="gr">
+		<selectKey keyProperty="gr_no" resultType="int" order="BEFORE">
+			select guestroom_seq.nextval from dual
+		</selectKey>
+			insert into guestroom values(#{gr_no},#{lodging_no},#{gr_name},#{gr_freecancel},#{gr_content},#{gr_ot},#{gr_size},#{gr_mainimg},#{gr_ap},#{gr_mp},#{gr_count})
+	</insert>
+	
+	<insert id="grbInsert" >
+		insert into guestroombed values(#{gr_no},#{bed_no},#{grb_cnt})
+	</insert>
+	
+	
+	<insert id="grimgInsert" parameterType="gimg">
+		insert into guestroomimg values(#{gr_no},#{gri_name})
+	</insert>
+	
+	<select id="guestOne" parameterType="int" resultType="gr">
+		select g.*,l.lodging_name, l.lodging_no ,o.ot_type
+		from guestroom g,lodging l, outlook o
+		where l.lodging_no = g.lodging_no and o.ot_no = g.gr_ot and g.gr_no = #{no}
+	</select>
+	
+	<select id="guestBeds" resultType="grbed">
+		SELECT b.*,gb.grb_cnt
+		FROM guestroom g ,bed b, guestroombed gb
+		where g.gr_no =#{no} and gb.gr_no = g.gr_no and b.bed_no = gb.bed_no
+	</select>
+	
+	
+	<!-- 객실 하나 삭제-->
+	<delete id="grDelete" parameterType="int">
+		delete from guestroom where gr_no=#{no}
+	</delete>
+	
+	<!-- 객실 update -->
+	<update id="grUpdate" parameterType="gr" >
+		update guestroom set gr_name=#{gr_name},gr_freecancel=#{gr_freecancel},gr_content=#{gr_content},gr_ot=#{gr_ot},gr_size=#{gr_size},gr_ap=#{gr_ap},gr_mp=#{gr_mp},gr_count=#{gr_count} where gr_no=#{gr_no} 
+	</update>
+	
+	<!--  숙소에 해당하는 객실 리스트 -->
+	<select id="lodgrList" resultType="gr" parameterType="int">
+		select g.*, o.*
+		from guestroom g ,lodging l, outlook o 
+		where g.lodging_no = l.lodging_no  and g.gr_ot = o.ot_no and l.lodging_no =#{no}
+	</select>
+	
+	<!-- 숙소에 해당하는 객실 no 리스트 -->
+	<select id="grnoList" parameterType="int" resultType="int">
+		select g.gr_no
+		from lodging l , guestroom g
+		where l.lodging_no = g.lodging_no and g.lodging_no = #{no}
+	</select>
+	
+	<!-- 숙소에 해당하는 객실 삭제 -->
+	<delete id="grAllDelete" parameterType="int">
+		delete from guestroom where lodging_no =#{no}
+	</delete>
+	
+	<!--  객실 메인 이미지 수정  -->
+	<update id="mainImgUpdate" parameterType="gr">
+		update guestroom set gr_mainimg =#{gr_mainimg} where gr_no=#{gr_no}
+	</update>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	
+</mapper>	
+	

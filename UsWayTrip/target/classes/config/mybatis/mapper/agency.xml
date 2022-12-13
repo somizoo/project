@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="agency">
+
+	<select id="selectList" resultType="agency">
+		<![CDATA[
+		select * from agency ORDER BY agency_no asc
+		]]>
+	</select>
+	
+	<insert id="insert" parameterType="agency">
+		insert into agency values (AGENCY_SEQ.nextval, #{agency_name}, #{agency_content,jdbcType=CLOB}, #{agency_proimg}, #{agency_mainimg})
+	</insert>
+	
+	<select id="selectOne" parameterType="int"  resultType="agency">
+		select * from agency where agency_no = #{agency_no}
+	</select>
+	
+	<update id="update" parameterType="agency">
+		update agency set agency_name=#{agency_name}, agency_content=#{agency_content,jdbcType=CLOB}, agency_proimg=#{agency_proimg}, agency_mainimg=#{agency_mainimg} where agency_no=#{agency_no}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		delete from agency where agency_no = #{agency_no}
+	</delete>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

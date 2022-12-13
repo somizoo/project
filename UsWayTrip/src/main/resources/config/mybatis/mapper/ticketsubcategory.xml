@@ -1,0 +1,43 @@
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ticketsubcategory"><!-- SQL 문들을 파일마다 구분할수 있는 이름.... -->
+
+	<!-- <parameterMap type="vo.DeptVO" id="deptVO"></parameterMap> 
+		<insert id="insert" parameterMap="deptVO">
+	-->
+
+	<!--  SQL 작성 -->
+	
+	<select id="selectList" resultType="tsc">
+		select * from ticketSubCategory
+	</select>
+	
+	<select id="tscSelectList" resultType="tsc">
+		select * from ticketSubCategory
+	</select>
+	
+	<select id="selectOne" parameterType="int" resultType="tsc">
+		select * from ticketSubCategory where tsc_no = #{tsc_no}
+	</select>
+	
+	<select id="selectNameOne" parameterType="int" resultType="String">
+		select tsc.tsc_name
+		from ticketsubcategory tsc
+		join ticket t on t.tsc_no = tsc.tsc_no
+		where t.ticket_no = #{ticket_no}
+	</select>
+	
+	<insert id="insert" parameterType="tsc">
+		insert into ticketSubCategory values(ticketSubCategory_seq.nextval, #{tsc_name})
+	</insert>
+	
+	<delete id="delete" parameterType="int">
+		delete from ticketSubCategory where tsc_no = #{seq}
+	</delete>
+	
+	<update id="update" parameterType="tsc">
+		update ticketSubCategory set tsc_name = #{tsc_name} where tsc_no = #{tsc_no}
+	</update>
+</mapper>
+

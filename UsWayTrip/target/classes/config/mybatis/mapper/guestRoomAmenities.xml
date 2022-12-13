@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="guestRoomAmenities">
+	<insert id="graInsert" parameterType="gram">
+		insert into guestroomamenities values(#{gr_no},#{amenities_no})
+	</insert>
+
+	<!-- 숙소 편의시설 sql -->
+	<delete id="gramDelete" parameterType="int">
+		delete from guestroomamenities where gr_no=#{no}
+	</delete>
+	
+	<!--  숙소가 가지고있는 편의시설  -->
+	<select id="guestAms" resultType="am">
+		select a.*
+		from guestroom g, guestroomamenities ga, amenities a
+		where g.gr_no =#{no} and ga.gr_no = g.gr_no and a.amenities_no = ga.amenities_no 
+	</select>
+</mapper>

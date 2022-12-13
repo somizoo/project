@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="guestRoomBed">
+	<!-- 객실 침대 sql -->
+	<delete id="grbedDelete" parameterType="int">
+		delete from guestroombed where gr_no=#{no}
+	</delete>
+	
+	<!-- 객실 전체 침대 리스트 -->
+	<select id="grbedAllList" resultType="grbed">
+		select g.gr_no, b.bed_type, gb.grb_cnt
+		  from guestroom g, guestroombed gb, bed b
+		  where g.gr_no = gb.gr_no and gb.bed_no = b.bed_no
+	</select>
+	
+	<!-- 해당 객실 침대 리스트 -->
+	<select id="grbedList" resultType="grbed" parameterType="int">
+		select g.gr_no, b.bed_type, gb.grb_cnt
+		  from guestroom g, guestroombed gb, bed b
+		  where g.gr_no = gb.gr_no and gb.bed_no = b.bed_no and g.gr_no =#{no}
+	</select>
+</mapper>

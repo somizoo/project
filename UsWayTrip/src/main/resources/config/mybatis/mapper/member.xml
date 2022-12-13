@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="member">
+
+   <!-- 11.30.(수) 추가 -->
+    <select id="selectOne" parameterType="int" resultType="member">
+      select * from member where member_no=#{member_no}
+    </select>
+   
+<!-- insert문을 사용하기 위해서 member 테이블 참조해서 아래 인서트문 작성 -->
+   <insert id="insert" parameterType="member">
+      insert into member values(member_seq.NEXTVAL, #{member_name}, #{member_gender}, #{member_birthday}, #{member_email}, #{member_pw}, #{member_clause}, #{member_ph}, #{member_role})
+   </insert>
+   
+   <select id="checkLogin" parameterType="member" resultType="int">
+      select member_no from member WHERE member_email = #{member_email} and member_pw =#{member_pw}
+    </select>
+    <!-- 12.1.(목) 세션에 권한 담기 추가  -->
+    <select id="checkRole" parameterType="member" resultType="int">
+      select member_role from member WHERE member_email = #{member_email} and member_pw =#{member_pw}
+    </select>
+    
+    <!-- 11.30.(수) 추가 -->
+    <select id="checkEmail" parameterType="String" resultType="String">
+       select member_email from member WHERE member_email = #{member_email}
+    </select>
+
+   <!-- 11.30.(수) 추가 -->
+   <select id="getEmail" parameterType="member" resultType="String">
+      select member_email from member where member_no=#{member_no}
+   </select>
+
+<!--    <select id="getName" parameterType="int" resultType="String"> -->
+<!--       select name from member where no=#{no} -->
+<!--    </select> -->
+
+   <!-- 11.30.(수) 추가 -->
+   <select id="getName" parameterType="member" resultType="String">
+      select member_name from member where member_no=#{member_no}
+   </select>
+   
+<!--    <select id="findId" parameterType="member" resultType="String"> -->
+<!--       select member_email from member where member_name=#{name} and tel1=#{tel1} and tel2=#{tel2} and tel3=#{tel3} -->
+<!--    </select> -->
+
+   <!-- 11.30.(수) 추가 -->
+   <select id="findEmail" parameterType="member" resultType="String">
+      select member_email from member where member_name=#{member_name} and member_ph=#{member_ph}
+   </select>
+   
+<!--    <select id="findPw" parameterType="member" resultType="String"> -->
+<!--       select password from member where id=#{id} and name=#{name} and tel1=#{tel1} and tel2=#{tel2} and tel3=#{tel3} -->
+<!--    </select> -->
+
+   <!-- 11.30.(수) 추가 -->
+   <select id="findPw" parameterType="member" resultType="String">
+      select member_pw from member where member_email=#{member_email} and member_name=#{member_name} and member_ph=#{member_ph}
+   </select>
+
+	<!-- 12.1.(목) 추가 -->
+	<update id="update" parameterType="member">
+		update member set member_name=#{member_name}, member_ph=#{member_ph}, member_pw=#{member_pw}, member_clause=#{member_clause} where member_no=#{member_no}
+	</update>
+	
+	
+	<!-- 22.12.03 추가 -->
+	<select id="countpw" parameterType="int" resultType="int">
+		select length(member_pw) from member where member_no=#{member_no}
+   </select>
+   
+   <!-- 22.12.03 추가 -->	
+	<select id="getId" parameterType="int" resultType="String">
+    	select member_name from member where member_no=#{no}
+	</select>
+	
+   <delete id="delete" parameterType="int">
+		delete member where member_no=#{no}
+	</delete>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
