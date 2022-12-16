@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jsp" %>
 
-<script src="${cpath }/resources/js/menu.js"></script>
+<script src="${cpath}/resources/js/menu.js"></script>
 <script src="${cpath}/resources/plugins/menuzord/js/menuzord.js"></script>
 
 <script src="${cpath}/resources/plugins/selectric/jquery.selectric.min.js"></script>

@@ -130,7 +130,7 @@
 			<div align = "left" style="margin-left: 30px; margin-top:20px;">
 				<label for="member_pw">비밀번호</label>
 			<br>
-				<input type="text" name ="member_pw" placeholder="바꿀 비밀번호를 입력 해 주세요" size=40>
+				<input type="password" name ="member_pw" placeholder="바꿀 비밀번호를 입력 해 주세요" size=40>
 			</div>
 		
 			<!-- 수신 동의 -->
