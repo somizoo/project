@@ -7,7 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import boarddata.BoardDataVO;
 
 public class AgencyDAO {
-//	변경 사항 확인
+//	변경 사항 확인 12.16.
 	private SqlSession sqlSession;
 	
 	public AgencyDAO(SqlSession sqlSession) {
