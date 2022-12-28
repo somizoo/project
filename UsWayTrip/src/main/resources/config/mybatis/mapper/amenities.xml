@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="amenities">
+	<!-- 객실 전체 편의시설 리스트 -->
+	<select id="grAmAllList" resultType="am">
+		select g.gr_no , a.amenities_name
+		from guestroom g, guestroomamenities ga, amenities a
+		where g.gr_no = ga.gr_no and ga.amenities_no = a.amenities_no
+	</select>
+	<!-- 해당 객실 편의시설 리스트 -->
+	<select id="gramList" resultType="am" parameterType="int">
+		select g.gr_no , a.amenities_name
+		from guestroom g, guestroomamenities ga, amenities a
+		where g.gr_no = #{no} and g.gr_no = ga.gr_no and ga.amenities_no = a.amenities_no
+	</select>
+</mapper>

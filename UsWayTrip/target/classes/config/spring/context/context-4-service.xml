@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<bean id="tscService" class="ticketsubcategory.TicketSubCategoryService">
+		<constructor-arg ref="tscDao"/>
+	</bean>
+	
+	<bean id="lodgingservice" class="lodging.LodgingService">
+		<constructor-arg ref="lodgingDao" index ="0"/>
+		<constructor-arg ref="imgDao" index="1"/>
+		<constructor-arg ref="grDao" index="2"/>
+		<constructor-arg ref="groDao" index="3"/>
+		<constructor-arg ref="grbDao" index="4"/>
+		<constructor-arg ref="amDao" index="5"/>
+		<constructor-arg ref="griDao" index="6"/>
+		<constructor-arg ref="graDao" index="7"/>
+		<!-- 22.12.04수정 -->
+		<constructor-arg ref="reviewDao" index="8"/>
+		<constructor-arg ref="mcDao" index="9"/>
+	</bean>
+	
+	<bean id="boardService" class="board.BoardService">
+		<constructor-arg ref="boardDao"/>
+	</bean>
+	
+	<bean id="memberService" class="member.MemberService">
+		<constructor-arg ref="memberDao"/>
+	</bean>
+	
+	<!--22.11.24 추가 22.12.04 수정 -->
+	<bean id="teService" class="ticketevent.TicketEventService">
+		<constructor-arg ref="teDao"/>
+	</bean>
+
+	
+	<!-- 22.11.26 추가 -->
+	<bean id="toService" class="ticketoption.TicketOptionService">
+		<constructor-arg ref="toDao"/>
+	</bean>
+	
+	
+	<!-- 22.11.27 추가 -->
+	<bean id="groService" class="guestroomoption.GuestRoomOptionService" >
+		<constructor-arg ref="groDao" index="0"/>
+		<!-- 12.3 -->
+		<constructor-arg ref="grDao" index="1"/>
+		<constructor-arg ref="lodgingDao" index ="2"/>
+	</bean>
+	
+	<bean id="grService" class="guestroom.GuestRoomService" >
+		<constructor-arg ref="grDao" index="0"/>
+		<constructor-arg ref="griDao" index="1"/>
+		<constructor-arg ref="graDao" index="2"/>
+		<constructor-arg ref="grbDao" index="3"/>
+		<constructor-arg ref="groDao" index="4"/>
+		<constructor-arg ref="amDao" index="5"/>
+		<!-- 12.3 추가 -->
+		<constructor-arg ref="lodgingDao" index ="6"/>
+		<!-- 12.5 추가 -->
+		<constructor-arg ref="mcDao" index="7"/>
+	</bean>
+	
+	<!-- 22.11.29 추가 -->
+	<bean id="reviewService" class="review.ReviewService" >
+		<constructor-arg ref="reviewDao" index="0"/>
+		<constructor-arg ref="memberDao" index="1"/>
+		<constructor-arg ref="riDao" index="2"/>
+	</bean>
+	
+	<!-- 22.11.30 추가 -->
+	<bean id="agencyService" class="agency.AgencyService">
+		<property name="agencyDao" ref="agencyDao"/>
+	</bean>
+	<bean id="tiService" class="ticketinfo.TicketInfoService" >
+		<constructor-arg ref="tiDao"/>
+	</bean>
+	
+	<!-- 22.12.01 추가 -->
+	<bean id="wlService" class="wishlist.WishListService">
+		<constructor-arg ref="wlDao" />
+	</bean>
+	
+	<bean id="boardDataService" class="boarddata.BoardDataService">
+		<constructor-arg ref="boardDataDao" index="0"/>
+		<constructor-arg ref="boardDao" index="1"/>
+		<constructor-arg ref="boardDataFileDao" index="2"/>
+	</bean>
+	
+	
+	<!-- 22.12.02 추가 -->
+	<bean id="mcService" class="managercoupon.ManagerCouponService">
+		<constructor-arg ref="mcDao" />
+	</bean>
+	
+	<!-- 22.12.04 추가 인진 -->
+	<bean id="csService" class="comingsoon.ComingSoonService">
+		<constructor-arg ref="csDao" />
+	</bean>
+	
+	
+	<!-- 22.12.06 추가 -->
+	  <bean id="placeService" class="place.PlaceService">
+      	<constructor-arg ref="placeDao" />
+  	 </bean>
+  	 
+  	 <bean id="paymentService" class="payment.PaymentService">
+  	 	<constructor-arg ref="paymentDao" index="0"/>
+  	 	<constructor-arg ref="lodgingDao" index="1"/>
+  	 	<constructor-arg ref="grDao" index="2"/>
+  	 	<constructor-arg ref="groDao" index="3"/>
+  	 	<constructor-arg ref="mcDao" index="4"/>
+  	 	<constructor-arg ref="amDao" index="5"/>
+  	 	<constructor-arg ref="memberDao" index="6"/>
+  	 	<constructor-arg ref="ticketDao" index="7"/>
+  	 	<constructor-arg ref="toDao" index="8"/>
+  	 </bean>
+
+	<bean id="ticketService" class="ticket.TicketService">
+		<constructor-arg ref="ticketDao" index="0"/>
+		<constructor-arg ref="tiDao" index="1"/>
+		<constructor-arg ref="tscDao" index="2"/>
+		<constructor-arg ref="toDao" index="3"/>
+		<constructor-arg ref="reviewDao" index="4"/>
+		<constructor-arg ref="placeDao" index="5"/>
+		<constructor-arg ref="teDao" index="6"/>
+	</bean>
+	
+	<!-- 22.12.08 -->
+	<bean id="tpoService" class="ticketpayoption.TicketPayOptionService">
+		<constructor-arg ref="tpoDao"/>
+	</bean>
+</beans>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tpo">
+
+	<select id="selectList" resultType="ticketoption">
+		 select * from ticketoption order by to_no
+	</select>
+	
+	<select id="noSelectList" resultType="int">
+		 select to_no from ticketoption
+	</select>
+	
+	<insert id="insert" parameterType="ticketoption">
+		 insert into ticketOption values(ticketoption_seq.nextval, #{to_title}, #{to_price}, #{to_su}, #{to_content}, #{ticket_no})
+	</insert>
+	
+	<delete id="delete" parameterType="int">
+		delete from ticketoption where to_no = #{to_no}
+	</delete>
+
+	<select id="selectOne" resultType="ticketoption" parameterType="int">
+		select * from ticketoption where to_no = #{to_no}
+	</select>
+
+	<update id="update" parameterType="ticketoption">
+		update ticketoption set to_title=#{to_title}, to_price=#{to_price}, to_su=#{to_su}, to_content=#{to_content} where to_no=#{to_no}
+	</update>
+	
+	<select id="toMinSelect" resultType="int" parameterType="int">
+		select nvl(min(to_price), 0) as to_price from ticketoption where ticket_no = #{ticket_no}
+	</select>
+
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+

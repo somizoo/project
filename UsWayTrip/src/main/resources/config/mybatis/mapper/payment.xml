@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="payment">
+	
+	<insert id="insert" parameterType="payment">
+		insert into payment (
+				payment_no, payment_id, product_no, member_no, 
+				gr_no, payment_reservedate, payment_date, 
+				payment_people, payment_price, payment_state, 
+				payment_start, payment_end, payment_kind,
+				payment_bank, payment_card, payment_approval,
+				gro_no, product_sort
+			)
+		 values(
+		 		payment_seq.nextVal, #{payment_id}, #{product_no}, #{member_no}, 
+		 		#{gr_no}, sysdate, sysdate, 
+		 		#{payment_people}, #{payment_price}, 1,
+		 		#{payment_start}, #{payment_end}, 'card',
+		 		#{payment_bank}, #{payment_card}, '1234',
+		 		#{gro_no}, #{product_sort}
+		 	)
+	</insert>
+	
+	
+	<select id="selectOne" parameterType="int" resultType="payment">
+		select * from payment where member_no = #{member_no}
+	
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mc">
+
+	<select id="selectList" resultType="mc">
+		<![CDATA[
+		select * from managercoupon ORDER BY mc_no asc
+		]]>
+	</select>
+	
+	<insert id="insert" parameterType="mc">
+		insert into managercoupon values (managercoupon_seq.nextval, #{mc_name}, #{mc_start}, #{mc_end}, #{mc_figure}, #{mc_sort}, #{mc_code}, #{mc_active})
+	</insert>
+	
+	<select id="selectOne" parameterType="int"  resultType="mc">
+		select * from managercoupon where mc_no = #{seq}
+	</select>
+	
+	<update id="update" parameterType="agency">
+		update managercoupon set mc_name=#{mc_name}, mc_start=#{mc_start}, mc_end=#{mc_end}, mc_figure=#{mc_figure}, mc_sort=#{mc_sort}, mc_active=#{mc_active} where mc_no=#{mc_no}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		delete from managercoupon where mc_no = #{seq}
+	</delete>
+	
+	<select id="getlodcupon" parameterType="int" resultType="mc">
+		select pc.product_no,mc.*
+		from productCoupon pc,managerCoupon mc
+		where pc.mc_no = mc.mc_no and pc.product_no = #{no}
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,51 @@
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ticketevent"><!-- SQL 문들을 파일마다 구분할수 있는 이름.... -->
+
+	<!-- <parameterMap type="vo.DeptVO" id="deptVO"></parameterMap> 
+		<insert id="insert" parameterMap="deptVO">
+	-->
+
+	<!--  SQL 작성 -->
+	
+	<select id="selectList" resultType="te">
+		select * from ticketevent
+	</select>
+	
+	<select id="selectOne" parameterType="int" resultType="te">
+		select * from ticketevent where te_no = #{te_no}
+	</select>
+	
+	<select id="teSelectJoin" parameterType="int" resultType="te">
+		select ted.ticket_no, te.te_name
+		from ticketevent te
+		join ticketeventdata ted on te.te_no = ted.te_no
+		join ticket t on t.ticket_no = ted.ticket_no
+		where t.ticket_no = #{ticket_no};
+	</select>
+	
+	<insert id="insert" parameterType="te">
+		insert into ticketevent values(ticketevent_seq.nextval, #{te_name}, #{te_img}, #{te_active})
+	</insert>
+	
+	<delete id="delete" parameterType="int">
+		delete from ticketevent where te_no = #{seq}
+	</delete>
+	
+	<delete id="teDelete" parameterType="int">
+		delete from ticketevent where te_no = #{te_no}
+	</delete>
+	
+	<update id="deletImg" parameterType="int">
+		update ticketevent set te_img = null where te_no = #{seq}
+	</update>
+	
+	<update id="update" parameterType="te">
+		update ticketevent set te_name = #{te_name},te_img=#{te_img, jdbcType=VARCHAR},te_active=#{te_active} where te_no=#{te_no} 
+	</update>
+	
+
+</mapper>
+
+

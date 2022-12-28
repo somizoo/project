@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="lodging">
+	<select id="lodgingList" resultType="lodging" parameterType="map">
+		select * from  
+	    (select rownum rn, t.* from 
+    	(select DISTINCT l.lodging_no,r.star,l.member_no,l.lodging_mainimg, l.lodging_address, l.lodging_name,m.member_name, l.lodging_grade from lodging l, lodgingfacilities f,lodgingservice s,member m, place p,guestroom g, ((select r.product_no , round(avg(r.review_star),1) as star 
+        from review r GROUP by r.product_no)r) where l.lodging_no = f.lodging_no and l.lodging_no = s.lodging_no and r.product_no = l.lodging_no and m.member_no = l.member_no and l.place_no = p.place_no
+        and g.lodging_no = l.lodging_no
+        <if test="lt_no != null">
+        	and l.lt_no = #{lt_no}
+        </if>
+        and l.lodging_active = 'y'
+        <if test="star != null">
+	    	and r.star >= #{star}
+	    </if>
+        and g.gr_mp >= #{adult_count}
+    	<if test="word != null">
+	    	and (p.place_name like '%${word}%' or l.lodging_name like '%${word}%')
+	    </if>
+	    <if test="facilities_no != null">
+	        and f.facilities_no in 
+	        	<foreach collection="facilities_no" item="type" open="(" close=")" separator=",">
+	        		#{type}
+	        	</foreach>
+	    </if>
+   	    <if test="service_no != null">
+			and s.service_no in 
+	    		<foreach collection="service_no" item="item" open="(" close=")" separator=",">
+	    			#{item}
+	    		</foreach>
+	    </if>)t)
+		<![CDATA[
+         where rn >=#{first} and rn <= #{last}  
+ 		]]>  
+	</select>
+	
+	<select id="selectOne" resultType="lodging" parameterType="int">
+		select * from lodging where lodging_no = #{no}
+	</select>
+	<select id="serviceList" resultType="service">
+		select * from service
+	</select>
+	
+	<select id="facilitieList" resultType="fac">
+		select * from facilities
+	</select>
+	
+	<select id="placeList" resultType="place">
+		select * from place
+	</select>
+	
+	<select id="ltList" resultType="lodgingType">
+		select * from lodgingtype
+	</select>
+	
+	<insert id="lodgingInsert" parameterType="lodging" >
+		<selectKey keyProperty="lodging_no" resultType="int" order="BEFORE">
+			select product_seq.nextval from dual
+		</selectKey>
+		
+		insert into lodging values(#{lodging_no},#{place_no},#{lt_no},#{lodging_name},#{lodging_address},#{lodging_long},#{lodging_lat},#{lodging_grade},#{lodging_checkin},#{lodging_checkout},#{lodging_info,jdbcType=CLOB},#{lodging_refund},#{lodging_content,jdbcType=CLOB},#{lodging_minp},#{lodging_mainimg},#{member_no},#{lodging_bprice},#{lodging_active})
+	</insert>
+	
+	<delete id="lodgingDelete" parameterType="int">
+		delete from lodging where lodging_no=#{no}
+	</delete>
+	
+	<select id="getProductSeq" resultType="int">
+		SELECT product_seq.currval FROM DUAL
+	</select>
+	
+	<insert id="imgInsert" parameterType="img">
+		insert into img values(#{product_no},#{img_name},#{img_extension})
+	</insert>
+	
+	
+	<insert id="lfInsert" parameterType ="lofac">
+		insert into lodgingFacilities values(#{lodging_no},#{facilities_no})
+	</insert>
+	
+	<delete id="lfDelete" parameterType="int">
+		delete from lodgingFacilities where lodging_no=#{no}
+	</delete>
+	<insert id="lsInsert" parameterType="service">
+		insert into lodgingService values(#{lodging_no},#{service_no})
+	</insert>
+	
+	<delete id="lsDelete" parameterType="int">
+		delete from lodgingService where lodging_no=#{no}
+	</delete>
+	
+	<select id="lodPlaceOne" parameterType="int" resultType="lodging">
+		select l.*,p.place_name
+		from lodging l, place p
+		where l.place_no = p.place_no and l.lodging_no = #{no}
+	</select>
+	
+	<select id="lodServices" resultType="service" parameterType="int" >
+		select s.*
+		from lodging l, service s, lodgingservice ls
+		where l.lodging_no = ls.lodging_no and s.service_no = ls.service_no and l.lodging_no = #{no}
+	</select>
+	
+	<select id="lodFacs" resultType="fac" parameterType="int" >
+		select f.*
+		from lodging l, facilities f, lodgingfacilities lof
+		where l.lodging_no = lof.lodging_no and f.facilities_no = lof.facilities_no and l.lodging_no = #{no}
+	</select>
+	
+	<select id="logImgs" resultType="img" parameterType="int">
+		select m.*
+		from lodging l, img m
+		where l.lodging_no = m.product_no and m.product_no =#{no}
+	</select>
+
+	<update id="lodgingUpdate" parameterType="lodging">
+		update lodging set place_no=#{place_no},lt_no=#{lt_no},lodging_name=#{lodging_name},lodging_address=#{lodging_address},lodging_long=#{lodging_long},lodging_lat=#{lodging_lat},lodging_grade=#{lodging_grade},lodging_checkin=#{lodging_checkin},lodging_checkout=#{lodging_checkout},lodging_info=#{lodging_info},lodging_refund=#{lodging_refund},lodging_content=#{lodging_content},lodging_minp=#{lodging_minp},lodging_bprice=#{lodging_bprice} where lodging_no=#{lodging_no}
+	</update>
+	
+	<select id="guestList" resultType="gr">
+		select * from guestroom where lodging_no =#{no}
+	</select>
+	
+	<update id="mainImgUpdate" parameterType="lodging">
+		update lodging set lodging_mainimg=#{lodging_mainimg} where lodging_no =#{lodging_no}
+	</update>
+	
+	<select id="getlodbf" parameterType="int" resultType="int">
+		select lodging_bprice
+		from lodging
+		where lodging_no = #{no}
+	</select>
+	
+	<select id="getTotal" parameterType="map" resultType="int">
+		select count(*) from  
+	    (select rownum rn, t.* from 
+	    (select DISTINCT l.lodging_no,r.star,l.member_no, l.lodging_address, l.lodging_name,m.member_name from lodging l, lodgingfacilities f,lodgingservice s,member m, place p,guestroom g, ((select r.product_no , round(avg(r.review_star),1) as star 
+        from review r GROUP by r.product_no)r) where l.lodging_no = f.lodging_no and l.lodging_no = s.lodging_no and r.product_no = l.lodging_no and m.member_no = l.member_no and l.place_no = p.place_no
+        and g.lodging_no = l.lodging_no
+        <if test="lt_no != null">
+        	and l.lt_no = #{lt_no}
+        </if>
+        and l.lodging_active = 'y'
+        <if test="star != null">
+	    	and r.star >= #{star}
+	    </if>
+        and g.gr_mp >= #{adult_count}
+    	<if test="word != null">
+	    	and (p.place_name like '%${word}%' or l.lodging_name like '%${word}%')
+	    </if>
+	    <if test="facilities_no != null">
+	        and f.facilities_no in 
+	        	<foreach collection="facilities_no" item="type" open="(" close=")" separator=",">
+	        		#{type}
+	        	</foreach>
+	    </if>
+   	    <if test="service_no != null">
+			and s.service_no in 
+	    		<foreach collection="service_no" item="item" open="(" close=")" separator=",">
+	    			#{item}
+	    		</foreach>
+	    </if>)t)
+
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</mapper>

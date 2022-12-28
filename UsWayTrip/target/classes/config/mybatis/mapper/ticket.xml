@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ticket">
+
+	<select id="selectList" resultType="ticket">
+		select t.ticket_no, t.ticket_img, t.ticket_pricesticker, tsc.tsc_name, p.place_name, t.ticket_title, t.ticket_confirmation
+		from ticket t
+		join ticketsubcategory tsc on t.tsc_no = tsc.tsc_no
+		join place p on t.place_no = p.place_no
+	</select>
+	
+	<select id="joinSelectOne" resultType="ticket" parameterType="int">
+		select t.*, tsc.tsc_name, p.place_name, t.ticket_valid, t.ticket_priceSticker, t.to_type
+		from ticket t
+		join ticketsubcategory tsc on t.tsc_no = tsc.tsc_no
+		join place p on t.place_no = p.place_no
+		and t.ticket_no = #{ticket_no}
+	</select>
+	
+	<select id="joinTeSelectList" resultType="int" parameterType="int" >
+		select te.te_no
+		from ticketevent te
+		join ticketeventdata ted on te.te_no = ted.te_no
+		join ticket t on t.ticket_no = ted.ticket_no
+		and t.ticket_no = #{ticket_no}
+	</select>
+	
+
+
+	<select id="selectOne" resultType="ticket" parameterType="int">
+		select * from ticket where ticket_no = #{ticket_no}
+	</select>
+
+	<select id="tscSelectOne" resultType="java.lang.String" parameterType="int">
+		select tsc_name from ticketSubCategory where tsc_no = #{tsc_no}
+	</select>
+	
+	<select id="placeSelectOne" resultType="java.lang.String" parameterType="int">
+		select place_name from place where place_no = #{place_no}
+	</select>
+	
+	<select id="toSelectOne" resultType="ticketoption" parameterType="int">
+		select to_type from ticket where ticket_no = #{ticket_no}
+	</select>
+	
+	<insert id="imgInsert" parameterType="img">
+		insert into img values(#{product_no}, #{img_name}, #{img_extension})
+	</insert>
+	
+	<insert id="teInsert" parameterType="ted">
+		insert into ticketEventData values(#{te_no}, #{ticket_no})
+	</insert>
+	
+	<select id="teNameSelectList" resultType="String" parameterType="int">
+		select te.te_name from ticketeventdata ted 
+		join ticket t on ted.ticket_no = t.ticket_no
+		join ticketevent te on te.te_no = ted.te_no
+		where t.ticket_no = #{ticket_no}
+	</select>
+	
+	<select id="toSelectList" resultType="ticketoption" parameterType="int">
+		select * from ticketoption where ticket_no = #{ticket_no}
+	</select>
+
+	<select id="teSelectList" resultType="te">
+		select * from ticketevent
+	</select>
+	
+	<select id="multiImgSelect" resultType="img" parameterType="int">
+		select * from img where product_no = #{product_no}
+	</select>
+	
+	<insert id="ticketInsert" parameterType="ticket">
+		<selectKey keyProperty="ticket_no" resultType="int" order="AFTER">  
+        select max(ticket_no) FROM ticket
+    	</selectKey>
+    	insert into ticket(ticket_no, place_no, tsc_no, member_no, ticket_priceSticker, ticket_title, ticket_confirmation, ticket_precautions, ticket_user, ticket_refund, ticket_sold_cnt, to_type, ticket_img, ticket_info, ticket_route, agency_no, ticket_valid, ticket_active) values(product_seq.NEXTVAL, #{place_no}, #{tsc_no}, #{member_no}, #{ticket_priceSticker}, #{ticket_title}, #{ticket_confirmation, jdbcType=VARCHAR}, #{ticket_precautions, jdbcType=VARCHAR}, #{ticket_user}, #{ticket_refund}, #{ticket_sold_cnt}, #{to_type}, #{ticket_img}, #{ticket_info, jdbcType=VARCHAR}, #{ticket_route}, #{agency_no}, #{ticket_valid, jdbcType=DATE}, #{ticket_active})
+	</insert>
+
+	<delete id="delete" parameterType="int">
+		delete from ticket where ticket_no = #{ticket_no}
+	</delete>
+	
+	<update id="update" parameterType="ticket">
+		update ticket set ticket_title = #{ticket_title}, place_no = #{place_no}, ticket_valid = #{ticket_valid}, ticket_confirmation = #{ticket_confirmation, jdbcType=VARCHAR}, ticket_priceSticker = #{ticket_priceSticker}, to_type = #{to_type}, ticket_precautions = #{ticket_precautions}, ticket_route = #{ticket_route}, ticket_user = #{ticket_user}, ticket_refund = #{ticket_refund}
+		where ticket_no = #{ticket_no}
+	</update>
+	
+	<!-- 22.12.07 -->
+	<select id="ticketSelectOne" parameterType="int" resultType="ticket">	
+		select ticket_no, ticket_img, ticket_title, ticket_valid, ticket_user, ticket_refund
+		from ticket
+		where ticket_no = #{ticket_no}
+	</select>
+	
+	<!-- 22.12.07 -->
+	<select id="toPaySelectList" parameterType="int" resultType="ticketoption">	
+		select to_no
+		from ticketoption 
+		where to_no = #{ticket_no}
+	</select>
+
+   	<!-- 22.12.08 -->
+   <select id="wishChoice" resultType="int" parameterType="map">
+      select count(*) from wishlist where product_no = #{ticket_no} and member_no = #{member_no}
+   </select>
+   
+   	
+	<select id="wishList" resultType="ticket" parameterType="int">
+		select t.ticket_no, t.ticket_img, t.ticket_pricesticker, tsc.tsc_name, p.place_name, t.ticket_title, t.ticket_confirmation
+		from ticket t
+		join ticketsubcategory tsc on t.tsc_no = tsc.tsc_no
+		join place p on t.place_no = p.place_no
+		where t.ticket_no = #{no}
+	</select>
+
+</mapper>
+
+
+
+
+
+
+

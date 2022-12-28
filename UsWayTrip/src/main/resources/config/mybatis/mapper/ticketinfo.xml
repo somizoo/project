@@ -1,0 +1,73 @@
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ticketinfo"><!-- SQL 문들을 파일마다 구분할수 있는 이름.... -->
+
+	<insert id="tiInsert" parameterType="ti">
+		<selectKey keyProperty="ti_no" resultType="int" order="AFTER">  
+        select max(ti_no) FROM ticketinfo
+    	</selectKey>
+		insert into ticketinfo values(ticketevent_seq.nextval, #{ti_name}, #{ti_img})
+	</insert>
+	
+	<insert id="tidInsert" parameterType="tid">
+		insert into ticketinfodata values(#{ti_no}, #{tid_value}, ticketinfodata_seq.nextval)
+	</insert>
+	
+	<select id="tiSelectList" resultType="ti">
+		select * from ticketinfo order by ti_no desc
+	</select>
+	
+	<select id="tidSelectList" resultType="tid">
+		select * from ticketinfodata order by tid_no asc
+	</select>
+	
+	<select id="tiSelectOne" parameterType="int" resultType="ti">
+		SELECT * from ticketinfo where ti_no = #{ti_no}
+	</select>
+	
+	<select id="tidValSelect" parameterType="int" resultType="tid">
+		select * from ticketinfodata where ti_no = #{ti_no} order by tid_no asc
+	</select>
+	
+	<update id="tiUpdate" parameterType="ti">
+		update ticketinfo set ti_name = #{ti_name}, ti_img = #{ti_img} where ti_no = #{ti_no}
+	</update>
+	
+	<update id="tidUpdate" parameterType="tid">
+		update ticketinfodata set tid_value = #{tid_value, jdbcType=VARCHAR} where ti_no = #{ti_no} and tid_no = #{tid_no}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		delete from ticketinfo where ti_no = #{ti_no}
+	</delete>
+	
+	<delete id="tidDelete" parameterType="int">
+		delete from ticketinfodata where tid_no = #{tid_no}
+	</delete>
+	
+	<insert id="tidNewInsert" parameterType="tid">
+		insert into ticketinfodata values(#{ti_no}, #{tid_value}, ticketinfodata_seq.nextval)
+	</insert>
+	
+	<insert id="tijInsert" parameterType="tij">
+		insert into ticketinfojoin values(#{ticket_no}, #{tid_no})
+	</insert>
+
+	<select id="tijSelect" parameterType="int" resultType="tid">
+		select tid.tid_value, ti.ti_img, ti.ti_name
+		from ticketinfojoin tij
+		join ticketinfodata tid on tid.tid_no = tij.tid_no
+		join ticketinfo ti on ti.ti_no = tid.ti_no
+		join ticket t on tij.ticket_no = t.ticket_no
+		where t.ticket_no = #{ticket_no}
+		order by ti.ti_no
+	</select>
+	
+	<!-- 22.12.07 -->
+	<select id="tidSelectValList" resultType="tid" parameterType="int">
+      select * from ticketinfodata where ti_no = #{ti_no}
+   </select>
+
+</mapper>
+

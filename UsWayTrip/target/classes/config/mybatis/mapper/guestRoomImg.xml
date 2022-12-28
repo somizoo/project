@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="guestRoomImg">
+
+	<select id="grImgs" resultType="gimg" parameterType="int">
+		select m.*
+		from guestroom g, guestroomimg m
+		where g.gr_no = m.gr_no and m.gr_no =#{no}
+	</select>
+	
+	<delete id="grImgDelete" parameterType="int">
+		delete from guestroomimg where gr_no=#{no} 
+	</delete>
+	
+	
+	<delete id="imgDelete" parameterType="String">
+		delete from guestroomimg where gri_name ='${value}'
+	</delete>
+	
+</mapper>

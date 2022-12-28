@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="img">
+	<!-- 숙소 번호 해당하는거 전체 사진 지우기 -->
+	<delete id="lodimgDel" parameterType="int">
+		delete from img where product_no =#{no}
+	</delete>
+	
+	<!-- 사진 하나만 지우기 -->
+	<delete id="imgDelete" parameterType="String">
+		delete from img where img_name ='${value}'
+	</delete>
+	
+</mapper>

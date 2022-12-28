@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bdf">
+
+	<select id="selectList" resultType="bdf" parameterType="int">
+		select * from boarddatafile where bd_no=#{bd_no}
+	</select>
+	
+	<insert id="insert" parameterType="bdf">
+		insert into boarddatafile values(boarddatafile_seq.nextval,#{bdf_name},#{bd_no})
+	</insert>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

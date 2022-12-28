@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	
+	<bean id="tscDao" class="ticketsubcategory.TicketSubCategoryDAO">
+		<property name="sqlSession" ref="sqlSession"/>
+	</bean>
+	
+	<bean id="lodgingDao" class="lodging.LodgingDAO">
+		<constructor-arg ref="sqlSession" />
+	</bean>
+	
+	<bean id="boardDao" class="board.BoardDAO">
+		<constructor-arg ref="sqlSession"/>
+	</bean>
+	
+	
+	<bean id="boardDataDao" class="boarddata.BoardDataDAO">
+		<constructor-arg ref="sqlSession"/>
+	</bean>
+	
+	
+	<bean id="memberDao" class="member.MemberDAO">
+		<property name="sqlSession" ref="sqlSession"/>
+	</bean>
+	
+	
+	<!-- 22.11.24 추가 -->
+	 <bean id="teDao" class="ticketevent.TicketEventDAO">
+		<property name="sqlSession" ref="sqlSession" />	 
+	 </bean>
+	 <bean id="ticketDao" class="ticket.TicketDAO">
+		<constructor-arg ref="sqlSession"/>
+	</bean>
+	
+	<!--22.11.26 추가 -->
+	<bean id="toDao" class="ticketoption.TicketOptionDAO">
+		<constructor-arg ref="sqlSession"/>
+	</bean>
+	
+	<!--22.11.27 추가 -->
+	<bean id="groDao" class="guestroomoption.GuestRoomOptionDAO">
+		<constructor-arg ref="sqlSession"/>
+	</bean>
+	
+	<!-- 22.11.28 추가 -->
+	
+	<bean id="grDao" class="guestroom.GuestRoomDAO">
+		<constructor-arg ref="sqlSession"/>
+	</bean>
+	
+	<!-- 22.11.29 추가 -->
+	<bean id="reviewDao" class="review.ReviewDAO">
+		<constructor-arg ref="sqlSession"/>
+	</bean>
+	<bean id="tiDao" class="ticketinfo.TicketInfoDAO">
+		<constructor-arg ref="sqlSession"/>
+	</bean>
+	
+	<!-- 22.11.30 추가 -->
+	<bean id="riDao" class="reviewimg.ReviewImgDAO">
+		<constructor-arg ref="sqlSession"/>
+	</bean>
+	
+	<bean id="griDao" class="guestroomimg.GuestRoomImgDAO">
+		<constructor-arg ref="sqlSession"/>
+	</bean>
+	
+	<bean id="agencyDao" class="agency.AgencyDAO">
+		<constructor-arg ref="sqlSession"/>
+	</bean>
+	
+	<!-- 22.12.01 추가 -->
+	<bean id="wlDao" class="wishlist.WishListDAO">
+		<constructor-arg ref="sqlSession" />
+	</bean>
+	
+	<!-- 22.12.02 추가 -->
+	<bean id="mcDao" class="managercoupon.ManagerCouponDAO">
+		<constructor-arg ref="sqlSession" />
+	</bean>
+	
+	<bean id="graDao" class="guestroomamenities.GuestRoomAmenitiesDAO">
+		<constructor-arg ref="sqlSession"/>
+	</bean>
+	
+	<bean id="grbDao" class="guestroombed.GuestRoomBedDAO">
+		<constructor-arg ref="sqlSession"/>
+	</bean>
+	
+	<bean id="amDao" class="amenities.AmenitiesDAO">
+		<constructor-arg ref="sqlSession"/>
+	</bean>
+	
+	
+	<bean id="boardDataFileDao" class="boarddatafile.BoardDataFileDAO">
+		<constructor-arg ref="sqlSession"/>
+	</bean>
+
+	<bean id="imgDao" class="img.ImgDAO">
+		<constructor-arg ref="sqlSession"/>
+	</bean>
+	
+		
+	<!-- 22.12.04 추가 인진 -->
+	<bean id="csDao" class="comingsoon.ComingSoonDAO">
+		<constructor-arg ref="sqlSession"/>
+	</bean>
+	
+	<!-- 22.12.06 추가 -->
+	<bean id="placeDao" class="place.PlaceDAO">
+      <constructor-arg ref="sqlSession"/>
+   	</bean>
+   	
+   	<bean id="paymentDao" class="payment.PaymentDAO">
+   		<constructor-arg ref="sqlSession"/>
+   	</bean>
+	
+	<!-- 22.12.08 추가 -->
+	<bean id="tpoDao" class="ticketpayoption.TicketPayOptionDAO">
+		<constructor-arg ref="sqlSession"/>
+	</bean>
+	
+</beans>
