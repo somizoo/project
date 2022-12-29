@@ -7,6 +7,7 @@ public class AgencyVO {
 	private String agency_proimg;	//여행사 프로필사진
 	private String agency_mainimg;	//여행사 대표사진
 	private String agency_num;
+	private String agency_ki;
 	
 	public AgencyVO() {
 		
